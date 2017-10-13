@@ -51,3 +51,6 @@
 通过hcatalog导入到hive表
    sqoop import --connect jdbc:mysql://10.32.144.143:3306/acornhc_healthdata --username hdw --password qingdw1220 --table phr_daily_test_pul    se_rate --hcatalog-storage-stanza 'stored as rcfile' --fields-terminated-by '\t' --hcatalog-database ods --hcatalog-table phr_daily_test_pu    lse_rate -m 5
 ~                     
+
+# YARN运行机制理解
+ ![image](https://github.com/zhaoxuanhe/hive-note/blob/master/YARN.jpg)
