@@ -54,3 +54,29 @@
 
 # YARN运行机制理解
  ![image](https://github.com/zhaoxuanhe/hive-note/blob/master/YARN.jpg)
+ 
+ 步骤：
+ 第一步：客户端向YARN平台提交应用程序，其中包括ApplicationMaster程序、启动命令脚本和用户程序等
+ 
+ 
+ 第二步：ResourceManager中的Scheduler为ApplicationMaster分配第一个Container，并且ApplicationsManager与对应的NodeManager通信，让NodeManager使ApplicationMaster在这个Container中运行。
+ 
+ 
+ 第三步：ApplicationMaster向ApplicationsManager注册自己，使ResourceManager能随时监控自己的状态。
+ 
+ 
+ 第四步：ApplicationMaster将任务拆分为多个内部任务，然后ApplicationMaster向Scheduler通信，为拆分后的Task申请资源和领取资源，ApplicationsManager与Scheduler通信以协调资源。
+ 
+ 
+ 第五步：ApplicationMast一旦申请得到资源后，便与NodeManager通信，申请启动运行任务
+ 
+ 
+ 第六步：NodeManager为拆分后的任务准备好运行环境，在申请得到的Container中通过脚本运行Task。
+ 
+ 
+ 第七步：各个Task通过RPC方式与ApplicationMaster通信，使ApplicationMaster可以随时知道各个任务的运行状态，从而可以在任务失败的时候发送命令重启任务。
+ 
+ 
+ 第八步：直到客户端提交的任务运行结束后，ApplicationMaster向ApplicationsManager注销并且关闭自己。
+ 
+ 
