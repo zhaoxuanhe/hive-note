@@ -230,7 +230,7 @@ public class ReflectDemo {
 但是这样有一个比较严重的缺点就是，如果正在接受服务员服务的客人点菜很慢，其他的客人可能就要等好长时间了。有些火爆脾气的客人可能就等不了走人了。</br>
 庙里老王后来发现，客人点菜比较慢，大部服务员都在等着客人点菜，其实干的活不是太多。庙里老王能当老板当然有点不一样的地方，终于发现了一个新的方法，那就是：当客人点菜的时候，服务员就可以去招呼其他客人了，等客人点好了菜，直接招呼一声“服务员”，马上就有个服务员过去服务。嘿嘿，然后在老板有了这个新的方法之后，就进行了一次裁员，只留了一个服务员！这就是用单个线程来做多线程的事。
 ## 模式示意图
-![image](https://github.com/zhaoxuanhe/hive-note/blob/master/YARN.jpg)
+![image](https://github.com/zhaoxuanhe/hive-note/blob/master/picture/Reactor.png)
 
 
 
