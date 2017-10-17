@@ -234,7 +234,7 @@ public class ReflectDemo {
 
 
 
-# YARN运行机制理解
+# 2 YARN运行机制理解
  ![image](https://github.com/zhaoxuanhe/hive-note/blob/master/YARN.jpg)
  
  步骤：
@@ -261,9 +261,9 @@ public class ReflectDemo {
  
  第八步：直到客户端提交的任务运行结束后，ApplicationMaster向ApplicationsManager注销并且关闭自己。
  
- # YARN基础库
+ # 3 YARN基础库
  
- ## Protocol Buffers
+ ## 3.1 Protocol Buffers
  > Protocol Buffers是Google开源的序列化库，是一种轻便高效的结构化数据存储格式，可以用于结构化数据序列化/反序列化。很适合做数据存储和或者RPC的数据交换格式，通常用作通信协议、数据存储等领域的与预言无关、平台无关、可扩展性的序列化结构数据格式；以.proto作为扩展名;生成java类</br>
  > C++ 、Java  、Python
  >>>	* 平台无关性、预言无关性
@@ -280,7 +280,7 @@ public class ReflectDemo {
 	* ResourceTracker.proto:定义了NM与RM之间的协议——————ResourceTracker
 	* MRClientProtocol.proto：定义了JobClient（作业提交客户端）与MRAppMaster之间的协议——————MRClientProtocol
 	* mr_protos.proto:定义了MRClientProtocol协议的各个参数
-## Apache Avro
+## 3.2 Apache Avro
 #### Apache Avro本身既是一个序列化框架，同时也实现了RPC的功能。
 	* 丰富的数据结构类型
 	* 快速可压缩的二进制数据格式
@@ -291,3 +291,26 @@ public class ReflectDemo {
 	* 数据无需加标签，减少序列化后数据的大小
 	* 无需手工分配的域标识
 #### Avro作为日志序列化库使用；在YARN MapReduce中，所有时间的序列化/反序列化均采用Avro完成
+## 3.3 底层通信库
+网络通信模块是分布式系统中最底层的模块，它直接支撑了上层分布式环境下复杂的进程间通信（Inter-Process Communication，IPC）逻辑。远程过程调用（Remote Procedure Call，RPC）是一种常用的分布式网络通信协议，它允许运行于一台计算机的程序调用另一台计算机的子程序，同时将网络的通信细节隐藏起来，使得用户无需额外的为这个交互作用编程。
+### PRC通信模型
+1、通信模块</br>
+两个相互协作的通信模块实现请求-应答协议，在传递消息的时候，一般不会对数据包进行任何处理。请求-应答协议分为同步方式和异步方式
+![image](https://github.com/zhaoxuanhe/hive-note/blob/master/picture/CommunicationModule.png)
+2、Stub程序</br>
+客户端和服务器都包含Stub程序，可看成代理程序。它使得远程函数调用表现得跟本地调用一样，对用户程序完全透明。在客户端看来，它就是一个本地程序，但是Stub不执行本地的调用，而是将请求通过通信模块发送给服务器端
+3、调度程序</br>
+调度程序接收来自通信模块的请求消息，并根据其中的标识选择一个Stub程序进行处理。通常客户端并发请求量比较大的时候，会采用线程池提高处理效率
+4、客户程序/服务过程</br>
+请求的发出者和请求的处理者
+#### RPC基本的处理流程
+![image](https://github.com/zhaoxuanhe/hive-note/blob/master/picture/RPCModel.png)
+1）客户端以本地方式调用系统产生的Stub程序</br>
+2）该Stub程序将函数调用信息按照网络通信模块的要求封装成消息包，并交给通信模块发送到远程服务器端</br>
+3）远程服务器端接收此消息后，将此消息发送给相应的Stub程序</br>
+4）Stub程序拆封消息，形成被调过程要求的形式，并调用相应的程序</br>
+5）被调用函数按照所获参数执行，并将结果返回给Stub程序
+6）Stub程序将此结果封装成消息，通过网络通信模块逐级地传送给客户程序
+
+
+
