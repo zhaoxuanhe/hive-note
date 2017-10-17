@@ -281,7 +281,7 @@ public class ReflectDemo {
 	* MRClientProtocol.proto：定义了JobClient（作业提交客户端）与MRAppMaster之间的协议——————MRClientProtocol
 	* mr_protos.proto:定义了MRClientProtocol协议的各个参数
 ## Apache Avro
-Apache Avro本身既是一个序列化框架，同时也实现了RPC的功能。
+#### Apache Avro本身既是一个序列化框架，同时也实现了RPC的功能。
 	* 丰富的数据结构类型
 	* 快速可压缩的二进制数据格式
 	* 存储持久数据的文件容器
