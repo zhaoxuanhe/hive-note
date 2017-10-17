@@ -271,7 +271,7 @@ public class ReflectDemo {
  >>>	* 体积小，文件大小仅是XML的1/10 ～ 1/3
  >>>	* 使用简单
  >>>	* 兼容性好
- ### YARN中所有的RPC写协议均采用Protocol Buffers定义
+ #### YARN中所有的RPC写协议均采用Protocol Buffers定义
  	* applicationmaster_protocol.proto:定义了AM与RM之间的协议——————ApplicationMasterProtocol
 	* applicationclient_protocol.proto:定义了JobClient（作业提交客户端）与RM之间的协议——————ApplicationClientProtocol
 	* containermanagement_protocol.proto:定义了AM与NM之间的协议——————ContainerManagementProtocol
@@ -280,3 +280,14 @@ public class ReflectDemo {
 	* ResourceTracker.proto:定义了NM与RM之间的协议——————ResourceTracker
 	* MRClientProtocol.proto：定义了JobClient（作业提交客户端）与MRAppMaster之间的协议——————MRClientProtocol
 	* mr_protos.proto:定义了MRClientProtocol协议的各个参数
+## Apache Avro
+Apache Avro本身既是一个序列化框架，同时也实现了RPC的功能。
+	* 丰富的数据结构类型
+	* 快速可压缩的二进制数据格式
+	* 存储持久数据的文件容器
+	* 提供远程过程调用RPC
+	* 简单的动态语言结合功能
+	* 支持动态模式，Avro不需要生成代码，有利于搭建通用的数据处理系统，同时避免了代码入侵
+	* 数据无需加标签，减少序列化后数据的大小
+	* 无需手工分配的域标识
+#### Avro作为日志序列化库使用；在YARN MapReduce中，所有时间的序列化/反序列化均采用Avro完成
