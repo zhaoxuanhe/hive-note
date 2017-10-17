@@ -320,5 +320,16 @@ public class ReflectDemo {
 5）被调用函数按照所获参数执行，并将结果返回给Stub程序
 6）Stub程序将此结果封装成消息，通过网络通信模块逐级地传送给客户程序
 
+### Hadoop RPC总体架构
+Hadoop RPC主要分为四个部分，分别是序列化层、函数调用层、网络传输层和服务器端处理框架。</br>
+
+序列化层：Protocol Buffers和Apache Avro均可用在序列化层</br>
+
+函数调用层：函数调用层主要功能是定位要调用的函数并执行该函数，Hadoop RPC采用了Java反射机制与动态代理实现了函数调用</br>
+
+网络传输层：Hadoop RPC的网络传输层采用了基于TCP/IP的Socket机制进行Client与Server之间的消息传输</br>
+
+服务器端处理框架：可以被抽象为网络I/O模型，Hadoop RPC采用了基于Reactor涉及模式的事件驱动I/O模型</br>
+
 
 
