@@ -261,4 +261,13 @@ public class ReflectDemo {
  
  第八步：直到客户端提交的任务运行结束后，ApplicationMaster向ApplicationsManager注销并且关闭自己。
  
+ # YARN基础库
  
+ ## Protocol Buffers
+ >> Protocol Buffers是Google开源的序列化库，是一种轻便高效的结构化数据存储格式，可以用于结构化数据序列化/反序列化。很适合做数据存储和或者RPC的数据交换格式，通常用作通信协议、数据存储等领域的与预言无关、平台无关、可扩展性的序列化结构数据格式；以.proto作为扩展名
+ >> C++ 、Java  、Python
+ >>>	* 平台无关性、预言无关性
+    	* 高性能，解析速度是XML的20～100倍
+	* 体积小，文件大小仅是XML的1/10 ～ 1/3
+	* 使用简单
+	* 兼容性好
