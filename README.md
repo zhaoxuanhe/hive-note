@@ -264,10 +264,19 @@ public class ReflectDemo {
  # YARN基础库
  
  ## Protocol Buffers
- > Protocol Buffers是Google开源的序列化库，是一种轻便高效的结构化数据存储格式，可以用于结构化数据序列化/反序列化。很适合做数据存储和或者RPC的数据交换格式，通常用作通信协议、数据存储等领域的与预言无关、平台无关、可扩展性的序列化结构数据格式；以.proto作为扩展名</br>
+ > Protocol Buffers是Google开源的序列化库，是一种轻便高效的结构化数据存储格式，可以用于结构化数据序列化/反序列化。很适合做数据存储和或者RPC的数据交换格式，通常用作通信协议、数据存储等领域的与预言无关、平台无关、可扩展性的序列化结构数据格式；以.proto作为扩展名;生成java类</br>
  > C++ 、Java  、Python
  >>>	* 平台无关性、预言无关性
  >>>	* 高性能，解析速度是XML的20～100倍
  >>>	* 体积小，文件大小仅是XML的1/10 ～ 1/3
  >>>	* 使用简单
  >>>	* 兼容性好
+ ### YARN中所有的RPC写协议均采用Protocol Buffers定义
+ 	* applicationmaster_protocol.proto:定义了AM与RM之间的协议——————ApplicationMasterProtocol
+	* applicationclient_protocol.proto:定义了JobClient（作业提交客户端）与RM之间的协议——————ApplicationClientProtocol
+	* containermanagement_protocol.proto:定义了AM与NM之间的协议——————ContainerManagementProtocol
+	* resourcemanager_administration_protocol.proto:定义了Admin（管理员）与RM之间的通信协议——————		    ResourceMangerAdministrationProtocol
+	* yarn_protos.proto:定义了各个协议RPC的参数
+	* ResourceTracker.proto:定义了NM与RM之间的协议——————ResourceTracker
+	* MRClientProtocol.proto：定义了JobClient（作业提交客户端）与MRAppMaster之间的协议——————MRClientProtocol
+	* mr_protos.proto:定义了MRClientProtocol协议的各个参数
