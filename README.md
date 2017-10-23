@@ -333,15 +333,27 @@ Hadoop RPC主要分为四个部分，分别是序列化层、函数调用层、�
 
 ### Hadoop RPC类详解
 
+
 Hadoop RPC使用可以分为四个步骤:</br>
 1)定义RPC协议,也就是定义客户端和服务器端的通信接口,定义了服务器端对外提供的服务接口.</br>
 2)实现RPC协议,通常情况下是一个Java接口,用户需要实现该接口.</br>
 3)构造并启动RPC Server,使用RPC.java中的一个静态类Builder构造一个RPC Server,并通过start()启动该Server</br>
 4)构造RPC Client并发送RPC请求,使用getProxy()构造客户端代理对象.直接通过代理对象调用远端的方法.
 
+#### ipc.RPC类分析
 
 ![image](https://github.com/zhaoxuanhe/hive-note/blob/master/picture/RPC.png)
 
+Hadoop RPC远程方法调用的流程:对于Hadoop RPC,函数调用由客户端发起,并在服务器端执行并返回,因此不能像单机程序那样直接在invoke方法中本地调用相关函数,具体做法是在invoke方法中,将函数调用信息(函数名,函数参数列表等)打包成可序列化的对象,并通过网络发送给服务器端,服务器端收到该调用信息后,解析出函数名,函数参数列表等信息后,利用java反射机制完成函数调用.</br>
 
+#### ipc.Client
 
+![image](https://github.com/zhaoxuanhe/hive-note/blob/master/picture/RPC-Client.png)
 
+Client内部有两个重要的内部类,分别是Call和Connection
+
+1)Call类:封装了一个RPC请求,包含唯一标识,重试次数,rpc请求的序列化对象,rpc响应的序列化对象,异常信息,prc框架类型,请求是否结束,外部的handler.由于Hadoop RPC Server采用异步方式处理客户端请求,这使远程过程调用的发生顺序与结果返回顺序无直接关系.Client通过唯一标识来识别不同的函数调用.</br>
+
+2)Connection类:Client与每个Server之间维护一个通信连接,与该连接相关的基本信息及操作被封装到Connection类中,包括唯一标示id,与Server端通信的Socket,保存RPC请求的hash表</br>
+
+![image](https://github.com/zhaoxuanhe/hive-note/blob/master/picture/RPC-Client-Connection.png)
