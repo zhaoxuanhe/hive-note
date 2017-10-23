@@ -331,5 +331,17 @@ Hadoop RPC主要分为四个部分，分别是序列化层、函数调用层、�
 
 服务器端处理框架：可以被抽象为网络I/O模型，Hadoop RPC采用了基于Reactor涉及模式的事件驱动I/O模型</br>
 
+### Hadoop RPC类详解
+
+Hadoop RPC使用可以分为四个步骤:</br>
+1)定义RPC协议,也就是定义客户端和服务器端的通信接口,定义了服务器端对外提供的服务接口.</br>
+2)实现RPC协议,通常情况下是一个Java接口,用户需要实现该接口.</br>
+3)构造并启动RPC Server,使用RPC.java中的一个静态类Builder构造一个RPC Server,并通过start()启动该Server</br>
+4)构造RPC Client并发送RPC请求,使用getProxy()构造客户端代理对象.直接通过代理对象调用远端的方法.
+
+
+![image](https://github.com/zhaoxuanhe/hive-note/blob/master/picture/RPC.png)
+
+
 
 
