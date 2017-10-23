@@ -357,3 +357,18 @@ Client内部有两个重要的内部类,分别是Call和Connection
 2)Connection类:Client与每个Server之间维护一个通信连接,与该连接相关的基本信息及操作被封装到Connection类中,包括唯一标示id,与Server端通信的Socket,保存RPC请求的hash表</br>
 
 ![image](https://github.com/zhaoxuanhe/hive-note/blob/master/picture/RPC-Client-Connection.png)
+
+当调用call函数执行某个远程方法时,Client端需要进行以下四个步骤:</br>
+1)创建一个Connection对象,并将远程方法调用信息封装成Call对象,放到Connection对象中的哈希表中.</br>
+2)调用Connection类中的sendRpcRequest()方法将当前Call对象发送给Server端;</br>
+3)Server端处理完RPC请求后,将结果通过网络返回给Client端,Client端通过receiveRpcResponse()函数获取结果</br>
+4)Client检查结果处理状态(成功还是失败),并将对应Call对象从哈希表中删除．</br>
+
+#### ipc.Server
+
+Hadoop RPC Server通过Reactor实现设计模式提高的整体性能</br>
+
+![image](https://github.com/zhaoxuanhe/hive-note/blob/master/picture/Hadoop-RPC-Server.png)
+
+
+
