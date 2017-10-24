@@ -378,3 +378,14 @@ Server端可同时存在多个Handler线程，Handler线程可以并行的从cal
 
 3）返回结果</br>
 Server端仅存在一个Responder建成，她的内部包含一个Selector对象，用于监听SelectionKey.OP_WRITE事件，Responder线程采用异步方式继续完成发送结果。</br>
+
+### YARN RPC实现
+
+Hadoop采用java编写，因而hadoop RPC的客户端可服务器端仅支持java语言，市场上一些其他的PRC框架还支持C++、Python、java等，这给用户编程带来了极大的不便。并且版本不同的hadoop之间不能通信。</br>
+Hadoop YARN将RPC中的序列化部分剥离出来，以便将现有的开源RPC框架集成进来。经过改进以后，RPC类变成了一个工厂，他将具体的RPC实现授权给RPCEngine实现类，而现有的开源RPC只要实现RPC接口，便可以集成到Hadoop RPC中。</br>
+
+#### YarnRPC相关实现类
+
+![image](https://github.com/zhaoxuanhe/hive-note/blob/master/picture/YarnRPC.png)
+
+
