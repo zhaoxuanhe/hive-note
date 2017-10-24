@@ -395,3 +395,24 @@ Hadoop YARN将RPC中的序列化部分剥离出来，以便将现有的开源RPC
 第三步：为RPC函数的参数和返回值提供Protocol Buffers定义（yarn_server_common_service_protos.proto）。</br>
 第四步：为RPC函数的参数和返回值提供Java定义和封装。
 第五步：为通信协议提供客户端和服务器端实现。
+
+### 服务库
+
+对于生命周期较长的对象，YARN采用了基于服务的对象管理模型对其进行管理</br>
+1)每个被服务化的对象分为NOTINITED(被创建)、INITED(已初始化)、STARTED(已启动)、STOPPED(已停止)</br>
+2)任何服务状态变化都可以触发另外一些动作。</br>
+3)可通过组合的方式对任意服务进行组合，以便进行统一管理。</br>
+#### 如果是非组合服务，直接继承AbstractService类；若是组合服务，则需要继承CompositeService类
+
+### 事件库
+
+YARN采用了基于事件驱动的并发模型，大大增强了系统的并发性，从而提高系统的整体性能。
+
+![image](https://github.com/zhaoxuanhe/hive-note/blob/master/picture/Yarn-EventLibrary.png)
+
+
+
+
+
+
+
