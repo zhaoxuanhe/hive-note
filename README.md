@@ -388,4 +388,10 @@ Hadoop YARN将RPC中的序列化部分剥离出来，以便将现有的开源RPC
 
 ![image](https://github.com/zhaoxuanhe/hive-note/blob/master/picture/YarnRPC.png)
 
+#### YarnRPC应用实例
 
+第一步：定义通信协议接口ResourceTracker，包含registerNodeManager()和nodeHeartbeat()</br>
+第二步：为通信协议ResourceTracker提供Protocol Buffers定义（ResourceTracker.proto）及java实现（ResourceTrackerService.java）</br>
+第三步：为RPC函数的参数和返回值提供Protocol Buffers定义（yarn_server_common_service_protos.proto）。</br>
+第四步：为RPC函数的参数和返回值提供Java定义和封装。
+第五步：为通信协议提供客户端和服务器端实现。
