@@ -370,5 +370,11 @@ Hadoop RPC Server通过Reactor实现设计模式提高的整体性能，ipc.Serv
 
 ![image](https://github.com/zhaoxuanhe/hive-note/blob/master/picture/Hadoop-RPC-Server.png)
 
+1）接收请求</br>
+接收来自各个客户端的RPC请求，并将他们封装成固定的格式（Call类）放到共享队列callQueue中，该阶段的连接阶段由Listener线程完成；接收请求由Reader线程完成。整个Server只有一个Listener线程，通过轮询的方式从线程池中选择一个Reader线程来处理客户端最新到达的请求。Listener通过简单的轮询分配机制决定每个Reader负责哪些客户端连接。Reader线程负责监听它所负责的客户端连接中是否有新的RPC请求到达，并将他们封装成Call对象。</br>
 
+2）处理请求</br>
+Server端可同时存在多个Handler线程，Handler线程可以并行的从callQuery共享队列中读取Call对象，执行对应的函数调用后，并且考虑到某些函数调用返回结果很大或者网速过慢，很难将结果一次性发送给客户端，因此，Handler将后续发送任务交给Responder线程。</br>
 
+3）返回结果</br>
+Server端仅存在一个Responder建成，她的内部包含一个Selector对象，用于监听SelectionKey.OP_WRITE事件，Responder线程采用异步方式继续完成发送结果。</br>
