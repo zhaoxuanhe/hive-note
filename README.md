@@ -366,7 +366,7 @@ Client内部有两个重要的内部类,分别是Call和Connection
 
 #### ipc.Server
 
-Hadoop RPC Server通过Reactor实现设计模式提高的整体性能</br>
+Hadoop RPC Server通过Reactor实现设计模式提高的整体性能，ipc.Server分为三个阶段：接收请求，处理请求和返回结果</br>
 
 ![image](https://github.com/zhaoxuanhe/hive-note/blob/master/picture/Hadoop-RPC-Server.png)
 
