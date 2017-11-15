@@ -1,0 +1,14 @@
+syntax = "proto2";
+option java_package = "com.protobufDemo.protogen";
+option java_outer_classname = "Calculator";
+option java_generic_services = true;
+option java_generate_equals_and_hash = true;
+
+//import "src/main/java/com/protobufDemo/proto/CalculatorMsg.proto";
+import "main/java/com/protobufDemo/proto/CalculatorMsg.proto";
+service CalculatorService {
+
+   rpc add(RequestProto) returns (ResponseProto);
+   rpc minus(RequestProto) returns (ResponseProto);
+
+}

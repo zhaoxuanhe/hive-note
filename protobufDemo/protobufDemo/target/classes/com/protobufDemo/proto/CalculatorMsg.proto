@@ -1,0 +1,15 @@
+syntax = "proto2";
+option java_package = "com.protobufDemo.protogen";
+option java_outer_classname = "CalculatorMsg";
+option  java_generic_services = true;
+option java_generate_equals_and_hash = true;
+
+message RequestProto {
+   required string methodName = 1;
+   required int32 num1 = 2;
+   required int32 num2 = 3;
+}
+
+message ResponseProto {
+   required int32 result = 1;
+}
