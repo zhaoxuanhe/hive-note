@@ -426,8 +426,12 @@ YARN采用了基于事件驱动的并发模型，大大增强了系统的并发�
 
 步骤1：Client通过RPC函数ApplicationClientProtocol#getNewApplication从ResourceManager中获取唯一的applicationID和最大可申请资源量。</br>
 步骤2：Client通过RPC函数ApplicationClientProtocol#submitApplication将ApplicationMaster提交到ResourceManager上。客户端将启动ApplicationMaster所需的所欲信息打包到数据结构ApplicationSubmissionContext中</br>
+ #### *注:ApplicationClientProtocol部分RPC函数主要用于客户端与ResourceManager之间的通信，这一部分对所有类型的应用程序来说都是一致的，故可以做成通用代码。但在实际应用环境中，为了减轻ResourceManager的负载，一旦应用程序的ApplicationMaster成功启动后，客户端通常直接与ApplicationMaster通信，以查询它的运行状态或者控制它的执行流程
+ 
+ 
+ 
 
- *注:ApplicationClientProtocol部分RPC函数主要用于客户端与ResourceManager之间的通信，这一部分对所有类型的应用程序来说都是一致的，故可以做成通用代码。
+ 
 
 
 
