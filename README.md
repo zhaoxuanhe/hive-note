@@ -428,6 +428,8 @@ YARN采用了基于事件驱动的并发模型，大大增强了系统的并发�
 步骤2：Client通过RPC函数ApplicationClientProtocol#submitApplication将ApplicationMaster提交到ResourceManager上。客户端将启动ApplicationMaster所需的所欲信息打包到数据结构ApplicationSubmissionContext中</br>
  #### *注:ApplicationClientProtocol部分RPC函数主要用于客户端与ResourceManager之间的通信，这一部分对所有类型的应用程序来说都是一致的，故可以做成通用代码。但在实际应用环境中，为了减轻ResourceManager的负载，一旦应用程序的ApplicationMaster成功启动后，客户端通常直接与ApplicationMaster通信，以查询它的运行状态或者控制它的执行流程
  
+
+因为不同类型的应用程序与ResourceManager交互逻辑是类似的，为了避免客户端的重复开发，YARN提供了能有ResourceManager交互完成各种操作的编程库org.apache.hadoop.yarn.client.YarnClient。该库对常用的函数进行了封装，并提供了容错、重试等容错机制。用户使用该库可以快速开发一个报刊应用程序提交、状态查询和控制等逻辑YARN客户端。（hadoop-yarn-client/src/main/java/org.apache.hadoop.yarn.client/api/YarnClient.java）
  
  
 
