@@ -410,6 +410,17 @@ YARN采用了基于事件驱动的并发模型，大大增强了系统的并发�
 
 ![image](https://github.com/zhaoxuanhe/hive-note/blob/master/picture/Yarn-EventLibrary.png)
 
+## 4.1 YARN应用程序设计方法
+
+应用程序(Application)是用户编写的车里数据的程序的统称。YARN自身对应用程序的类型没有任何限制，可以是处理短类型任务的MapReduce作业，也可以是不熟长时间运行的服务的应用程序，比如Storm。YARN应用程序编写比较复杂，例如，专业人员实现可以直接运行在YARN之上的MapReduce框架库（假设打包后为yarn-mapreduce.jar，主要完成数据切分、资源申请、任务调度与容错、网络通信等功能）。而普通用户只需要编写map()和reduce()两个函数完成MapReduce程序设计（假设打包后为my-app.jar，主要完成自己计算所需的逻辑）。这样用户提交应用程序时，YARN会自动将yarn-mapreduce.jar和my-app.jar两个JAR包同时提交到YARN之上，以完成一个分布式应用的计算。该部分重点介绍如何编写一个运行在YARN之上的框架。</br>
+    如果想要将一个新的应用程序运行在YARN之上，通常需要编写两个组件Client和ApplicationMaster。其中，客户端负责向ResourceMaster提交ApplicationMaster，并查询应用程序运行状态；ApplicationMaster负责向ResourceManager申请资源(以Container形式表示)，并与NodeManager通信以启动各个Container，此外，ApplicationMaster还负责监控各个任务的运行状态，并在失败的时候为其重新申请资源。</br>
+
+ 
+![image](https://github.com/zhaoxuanhe/hive-note/blob/master/picture/CommunicationProtocol.png)
+
+1)ApplicationClientProtocol(用于Client与ResourceManager之间)。Client通过该协议可实现将应用程序提交到ResourceManager上、查询应用程序的运行状态或者杀死应用程序等功能。
+
+
 
 
 
