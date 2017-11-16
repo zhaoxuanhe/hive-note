@@ -432,6 +432,8 @@ YARN采用了基于事件驱动的并发模型，大大增强了系统的并发�
 因为不同类型的应用程序与ResourceManager交互逻辑是类似的，为了避免客户端的重复开发，YARN提供了能有ResourceManager交互完成各种操作的编程库org.apache.hadoop.yarn.client.YarnClient。该库对常用的函数进行了封装，并提供了容错、重试等容错机制。用户使用该库可以快速开发一个报刊应用程序提交、状态查询和控制等逻辑YARN客户端。（hadoop-yarn-client/src/main/java/org.apache.hadoop.yarn.client/api/YarnClient.java）
  
  
+## 4.3 ApplicationMaster设计
+ApplicationMaster(AM)需要与ResourceManager(RM)和NodeManager(NM)两个服务交互，
 
  
 
