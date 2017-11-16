@@ -418,9 +418,9 @@ YARN采用了基于事件驱动的并发模型，大大增强了系统的并发�
  
 ![image](https://github.com/zhaoxuanhe/hive-note/blob/master/picture/CommunicationProtocol.png)
 
-1)ApplicationClientProtocol(用于Client与ResourceManager之间)。Client通过该协议可实现将应用程序提交到ResourceManager上、查询应用程序的运行状态或者杀死应用程序等功能。
-
-
+1)ApplicationClientProtocol(用于Client与ResourceManager之间)。Client通过该协议可实现将应用程序提交到ResourceManager上、查询应用程序的运行状态或者杀死应用程序等功能。</br>
+2）ApplicationMasterProtocol(用于ApplicationMaster与ResourceManager之间)。ApplicationMaster使用该协议向ResourceManager注册、申请资源、获取各个任务运行情况等。</br>
+3)ContainerManagerProtocol(用于ApplicationMaster与NodeManager之间)。ApplicationMaster使用该协议要求NodeManager启动/撤销Container或者查询Container的运行状态。
 
 
 
