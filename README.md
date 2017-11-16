@@ -422,6 +422,15 @@ YARN采用了基于事件驱动的并发模型，大大增强了系统的并发�
 2）ApplicationMasterProtocol(用于ApplicationMaster与ResourceManager之间)。ApplicationMaster使用该协议向ResourceManager注册、申请资源、获取各个任务运行情况等。</br>
 3)ContainerManagerProtocol(用于ApplicationMaster与NodeManager之间)。ApplicationMaster使用该协议要求NodeManager启动/撤销Container或者查询Container的运行状态。
 
+## 4.2 客户端设计
+
+步骤1：Client通过RPC函数ApplicationClientProtocol#getNewApplication从ResourceManager中获取唯一的applicationID和最大可申请资源量。</br>
+步骤2：Client通过RPC函数ApplicationClientProtocol#submitApplication将ApplicationMaster提交到ResourceManager上。客户端将启动ApplicationMaster所需的所欲信息打包到数据结构ApplicationSubmissionContext中</br>
+
+ *注:ApplicationClientProtocol部分RPC函数主要用于客户端与ResourceManager之间的通信，这一部分对所有类型的应用程序来说都是一致的，故可以做成通用代码。
+
+
+
 
 
 
